@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orchestrator"
+version = "0.1.0"
+description = "YAML DAG orchestrator for MLOps workflows"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Platform Team" }]
+dependencies = [
+  "mlops-core-lib[config]>=0.1.0",
+  "pyyaml>=6.0.1"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0.0", "mypy>=1.9.0", "ruff>=0.4.0"]
+
+[project.scripts]
+orchestrator-run = "orchestrator.cli:main"
+
+[tool.setuptools]
+packages = ["orchestrator"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

@@ -1,0 +1,11 @@
+pipeline:
+  name: predict-example
+  config:
+    - global
+    - dev
+  stages:
+    - name: preprocess
+      run: preprocess_step
+    - name: predict
+      run: predict_step
+      depends_on: preprocess

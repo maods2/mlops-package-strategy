@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlops-core-lib"
+version = "0.1.0"
+description = "Core abstractions and configuration processing for modular MLOps platforms"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Platform Team" }]
+dependencies = []
+
+[project.optional-dependencies]
+config = ["pydantic>=2.6.0", "pyyaml>=6.0.1"]
+tracking = []
+cloud = []
+training = []
+serving = []
+dev = ["pytest>=8.0.0", "mypy>=1.9.0", "ruff>=0.4.0"]
+
+[tool.setuptools]
+packages = ["mlops_core_lib"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

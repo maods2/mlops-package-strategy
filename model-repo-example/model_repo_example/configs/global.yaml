@@ -1,0 +1,8 @@
+data:
+  dataset: "customer_churn"
+training:
+  epochs: 2
+  learning_rate: 0.05
+serving:
+  weight: 1.25
+  bias: 0.01
