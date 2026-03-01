@@ -1,0 +1,11 @@
+pipeline:
+  name: train-example
+  config:
+    - global
+    - dev
+  stages:
+    - name: preprocess
+      run: preprocess_step
+    - name: train
+      run: train_step
+      depends_on: preprocess

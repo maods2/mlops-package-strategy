@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  test-lint-type:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ./mlops-core-lib[config,dev]
+          pip install -e ./orchestrator[dev]
+          pip install -e ./model-repo-example[dev]
+      - name: Run tests
+        run: |
+          PYTHONPATH=mlops-core-lib pytest mlops-core-lib/tests
+          PYTHONPATH=mlops-core-lib:orchestrator pytest orchestrator/tests
+          PYTHONPATH=mlops-core-lib:orchestrator:model-repo-example pytest model-repo-example/tests
+      - name: Run lint
+        run: |
+          ruff check mlops-core-lib/mlops_core_lib orchestrator/orchestrator model-repo-example/model_repo_example
+      - name: Run type checking
+        run: |
+          mypy mlops-core-lib/mlops_core_lib orchestrator/orchestrator model-repo-example/model_repo_example

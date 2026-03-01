@@ -1,0 +1,22 @@
+"""Logging abstraction layer."""
+
+from __future__ import annotations
+
+import logging
+
+
+class LoggerFactory:
+    """Create consistent application loggers."""
+
+    @staticmethod
+    def create_logger(name: str) -> logging.Logger:
+        logger = logging.getLogger(name)
+        if not logger.handlers:
+            handler = logging.StreamHandler()
+            formatter = logging.Formatter(
+                "%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+            )
+            handler.setFormatter(formatter)
+            logger.addHandler(handler)
+        logger.setLevel(logging.INFO)
+        return logger
